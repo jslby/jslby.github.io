@@ -1,0 +1,4 @@
+name: JslBy
+markdown: redcarpet
+pygments: true
+permalink: /:title.html

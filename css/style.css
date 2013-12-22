@@ -1,0 +1,44 @@
+html,
+body{
+  height: 100%;
+}
+
+#wrap {
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -60px;
+  padding: 0 0 60px;
+}
+
+.fork-github img{
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  border: 0;
+}
+
+header h2 a{
+  color: #333333;
+  -webkit-transition: color linear 350ms;
+}
+
+header h2 a:hover{
+  text-decoration: none;
+  color: #2a6496;
+  -webkit-transition: color 0.3s ease-out;
+  -moz-transition: color 0.3s ease-out;
+  -o-transition: color 0.3s ease-out;
+  transition: color 0.3s ease-out;
+}
+
+#footer{
+  height: 59px;
+  line-height: 59px;
+  color: #999999;
+  border-top: 1px solid #e5e5e5;
+}
+
+#footer p{
+  margin: 0;
+  padding: 0;
+}
