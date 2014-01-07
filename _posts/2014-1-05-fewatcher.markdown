@@ -1,7 +1,8 @@
 ---
 layout: post
-title:  "[мои проекты] fewatcher - конфигурация Grunt.js"
+title:  "fewatcher - конфигурация Grunt.js"
 date:   2014-1-5 11:43:00
+category: 'мои проекты'
 ---
 
 Ссылка: [jslby/fewatcher](https://github.com/jslby/fewatcher)
@@ -35,4 +36,4 @@ date:   2014-1-5 11:43:00
 В папке с проектом находится директория `source`, где лежат исходники jade и stylus. С ними и нужно работать. При первом изменении будет создана папка `dest`, в которой будет находится скомпилированная верстка в формате HTML+CSS
 
 > P.S. Для работы LiveReload, на страницу необходимо добавить скрипт
-> <script src="//localhost:35729/livereload.js"></script>
+> `<script src="//localhost:35729/livereload.js"></script>`
