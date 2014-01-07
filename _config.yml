@@ -1,0 +1,7 @@
+name: JslBy
+markdown: redcarpet
+pygments: true
+category_title_prefix: ''
+permalink: /:categories/:title.html
+
+exclude: ['Gemfile', 'Gemfile.lock', 'Rakefile', 'README.md']
