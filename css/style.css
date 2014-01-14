@@ -1,6 +1,21 @@
 html,
 body{
   height: 100%;
+  background: #f6f6f6;
+}
+
+a{
+  color: #007200;
+  text-decoration: none;
+  -webkit-transition: color 0.3s ease-out;
+  -moz-transition: color 0.3s ease-out;
+  -o-transition: color 0.3s ease-out;
+  transition: color 0.3s ease-out;
+}
+
+a:hover{
+  color: #FF6B6B;
+  text-decoration: none;
 }
 
 #wrap {
@@ -19,16 +34,20 @@ body{
 
 header h2 a{
   color: #333333;
-  -webkit-transition: color linear 350ms;
 }
 
 header h2 a:hover{
   text-decoration: none;
   color: #2a6496;
-  -webkit-transition: color 0.3s ease-out;
-  -moz-transition: color 0.3s ease-out;
-  -o-transition: color 0.3s ease-out;
-  transition: color 0.3s ease-out;
+}
+
+.posts li{
+  list-style: none;
+}
+
+.posts li:before{
+  content: '—';
+  margin-right: 10px;
 }
 
 #footer{
