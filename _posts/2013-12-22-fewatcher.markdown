@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "fewatcher - конфигурация Grunt.js"
-date:   2014-1-5 11:43:00
+date:   2013-12-22 11:43:00
 ---
 
 Ссылка: [jslby/fewatcher](https://github.com/jslby/fewatcher)
