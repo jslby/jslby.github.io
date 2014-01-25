@@ -121,3 +121,8 @@ pre{
 pre code{
   font-size: 12px;
 }
+
+#disqus_thread{
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
