@@ -113,15 +113,6 @@ header h2 a{
   padding: 0;
 }
 
-pre{
-  border: 1px solid #ddd;
-  border-radius: 3px;
-}
-
-pre code{
-  font-size: 12px;
-}
-
 #disqus_thread{
   margin-top: 50px;
   margin-bottom: 30px;
@@ -129,6 +120,7 @@ pre code{
 
 code{
   padding: 2px 4px;
+  font-size: 12px;
   color: #d14;
   background-color: #f8f8f8;
   border: 1px solid #ddd;
