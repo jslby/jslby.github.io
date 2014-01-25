@@ -62,9 +62,9 @@ p{
 #wrap {
   min-height: 100%;
   height: auto;
-  margin: 0 auto -60px;
+  margin: 0 30px -60px;
   padding: 0 0 60px;
-  }
+}
 
 .container{
   max-width: 976px;
