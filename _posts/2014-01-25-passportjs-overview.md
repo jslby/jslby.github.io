@@ -12,12 +12,11 @@ Passport знает о том, что каждое приложение имее
 
 ####Пример
 
-<pre><code class="javascript">app.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-}));
-</code></pre>
+    app.post('/login', passport.authenticate('local', {
+      successRedirect: '/',
+      failureRedirect: '/login',
+    }));
 
 ####Установка
 
-<pre><code class="bash">$ npm install passport</code></pre>
+    $ npm install passport
