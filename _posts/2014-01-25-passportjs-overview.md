@@ -16,7 +16,8 @@ Passport знает о том, что каждое приложение имее
   successRedirect: '/',
   failureRedirect: '/login',
 }));
-</pre></code>
+</code></pre>
 
 ####Установка
-<pre><code class="bash">$ npm install passport</pre></code>
+
+<pre><code class="bash">$ npm install passport</code></pre>
