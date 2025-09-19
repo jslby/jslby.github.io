@@ -360,7 +360,7 @@
       ${exBlocks}
       <div style="margin-top:8px" class="actions" >
         <button class="btn icon" title="Посмотреть" onclick="openWorkout('${w.id}')">👁</button>
-        <button class="btn" onclick='copyShare(${JSON.stringify(JSON.stringify(shareWorkout(w))).split("\"").join("&quot;")})' title="Поделиться">⧉</button>
+        <button class="btn" onclick="shareById('${w.id}')" title="Поделиться">⧉</button>
       </div>
     </div>`
   }
@@ -376,10 +376,10 @@
       const ton = sum(b.sets, s=>s.tonnage||0);
       lines.push(`• ${ex?.name||'Упражнение'}: ${repsTotal} повт., ${ton.toFixed(0)} кг`);
     }
-    return lines.join('
-');
+    return lines.join('');
   }
   function copyShare(text){ navigator.clipboard.writeText(text); toast('Сводка скопирована'); }
+function shareById(id){ const w = workouts.find(x=>x.id===id); if(!w){ toast('Не найдено'); return } copyShare(shareWorkout(w)); }
 
   // ---------- Quick start ----------
   $('#btnStartWorkout').onclick = ()=> startWorkoutFlow();
