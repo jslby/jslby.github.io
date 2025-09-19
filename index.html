@@ -5,21 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rep Tracker PWA (Single‑File)</title>
   <meta name="theme-color" content="#111827" />
-  <!-- Minimal styles -->
   <style>
     :root{--bg:#0b0f19;--card:#111827;--muted:#6b7280;--text:#e5e7eb;--accent:#22c55e;--danger:#ef4444;--warning:#f59e0b;--border:#1f2937}
     html,body{height:100%}
     body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
     .wrap{max-width:1024px;margin:0 auto;padding:16px}
     .row{display:flex;gap:12px;flex-wrap:wrap}
+    .row-col{display:flex;flex-direction:column;gap:8px}
     .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px}
     .card h3{margin:0 0 8px}
-    .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);background:#0f1629;color:var(--text);padding:8px 12px;border-radius:10px;cursor:pointer}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--border);background:#0f1629;color:var(--text);padding:8px 10px;border-radius:10px;cursor:pointer;min-width:34px;min-height:34px}
     .btn:disabled{opacity:.5;cursor:not-allowed}
     .btn.primary{background:var(--accent);color:#08130c;border-color:#0e4421}
-    .btn.danger{background:#2a0e10;color:#ffd7d7;border-color:#3a1417}
     .btn.ghost{background:transparent}
-    .input, select{background:#0f1629;border:1px solid var(--border);color:var(--text);padding:8px 10px;border-radius:10px}
+    .btn.icon{width:36px;height:36px;padding:0;align-items:center;justify-content:center}
+    .input, select, textarea{background:#0f1629;border:1px solid var(--border);color:var(--text);padding:8px 10px;border-radius:10px}
     label{display:block;margin-bottom:6px;color:#cbd5e1}
     .muted{color:var(--muted)}
     .tabs{position:fixed;left:0;right:0;bottom:0;background:#0d1426;border-top:1px solid var(--border);display:flex}
@@ -46,17 +46,23 @@
     .table th,.table td{border-bottom:1px solid var(--border);padding:8px;text-align:left}
     .danger-text{color:#ff9c9c}
     .accent{color:var(--accent)}
+    .actions{display:flex;gap:6px;flex-wrap:nowrap}
+    .name-cell{flex:1;word-break:break-word;overflow-wrap:anywhere;min-width:120px}
+
+    /* Responsive tweaks: bottom cards stack on mobile */
+    @media (max-width: 720px){
+      .grid-3, .grid-4{ grid-template-columns:1fr; }
+    }
   </style>
-  <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
   <div class="wrap">
     <header class="row-sb" style="margin-bottom:12px">
       <h2>Rep Tracker</h2>
-      <div>
-        <button class="btn" id="btnExport">Экспорт</button>
-        <label class="btn ghost" for="fileImport">Импорт</label>
+      <div class="actions">
+        <button class="btn icon" id="btnExport" title="Экспорт">⤓</button>
+        <label class="btn icon ghost" for="fileImport" title="Импорт">⤒</label>
         <input id="fileImport" type="file" accept="application/json" class="hidden" />
       </div>
     </header>
@@ -79,7 +85,7 @@
 
       <div class="card">
         <div class="row-sb"><h3>Календарь 30 дней</h3>
-          <button class="btn" id="btnStartWorkout">Старт тренировки</button>
+          <button class="btn icon" id="btnStartWorkout" title="Старт">▶</button>
         </div>
         <div id="calendar" class="calendar" style="margin-top:10px"></div>
       </div>
@@ -88,11 +94,11 @@
         <div class="card">
           <h3>Быстрый старт</h3>
           <div class="row" style="gap:8px">
-            <select id="quickProgram" class="input"></select>
-            <input id="inputBodyWeight" class="input" type="number" placeholder="Вес тела (кг)" />
-            <button id="btnQuickGo" class="btn primary">Поехали</button>
+            <select id="quickProgram" class="input" style="flex:1"></select>
+            <input id="inputBodyWeight" class="input" type="number" placeholder="Вес тела (кг)" style="width:140px" />
+            <button id="btnQuickGo" class="btn primary" title="Поехали">▶</button>
           </div>
-          <div class="muted" style="margin-top:8px">Вес тела используется в расчёте тоннажа для упражнений с собственным весом.</div>
+          <div class="muted" style="margin-top:8px">Вес тела используется для расчёта тоннажа упражнений с собственным весом.</div>
         </div>
         <div class="card">
           <h3>Итоги</h3>
@@ -113,7 +119,7 @@
     <section id="page-programs" class="hidden">
       <div class="row" style="justify-content:space-between;align-items:center">
         <h3>Программы</h3>
-        <button class="btn" id="btnAddProgram">Новая программа</button>
+        <button class="btn icon" id="btnAddProgram" title="Добавить">＋</button>
       </div>
       <div id="programsList" class="list"></div>
     </section>
@@ -122,7 +128,7 @@
     <section id="page-exercises" class="hidden">
       <div class="row" style="justify-content:space-between;align-items:center">
         <h3>Упражнения</h3>
-        <button class="btn" id="btnAddExercise">Добавить</button>
+        <button class="btn icon" id="btnAddExercise" title="Добавить">＋</button>
       </div>
       <div id="exercisesList" class="list"></div>
     </section>
@@ -163,7 +169,7 @@
   <dialog id="dlgWorkout">
     <form method="dialog">
       <div class="card" style="border:none">
-        <div class="row-sb"><h3 id="wTitle">Тренировка</h3><button class="btn ghost" value="close">✕</button></div>
+        <div class="row-sb"><h3 id="wTitle">Тренировка</h3><button class="btn icon ghost" value="close" title="Закрыть">✕</button></div>
         <div id="wContent"></div>
       </div>
     </form>
@@ -173,7 +179,7 @@
   <dialog id="dlgEditor">
     <form method="dialog">
       <div class="card" style="border:none;max-width:800px">
-        <div class="row-sb"><h3 id="edTitle">Редактор</h3><button class="btn ghost" value="close">✕</button></div>
+        <div class="row-sb"><h3 id="edTitle">Редактор</h3><button class="btn icon ghost" value="close" title="Закрыть">✕</button></div>
         <div id="edContent"></div>
       </div>
     </form>
@@ -183,7 +189,7 @@
   <dialog id="dlgPicker">
     <form method="dialog">
       <div class="card" style="border:none;max-width:560px">
-        <div class="row-sb"><h3 id="pkTitle">Добавить шаг</h3><button class="btn ghost" value="close">✕</button></div>
+        <div class="row-sb"><h3 id="pkTitle">Добавить шаг</h3><button class="btn icon ghost" value="close" title="Закрыть">✕</button></div>
         <div id="pkContent"></div>
       </div>
     </form>
@@ -209,6 +215,14 @@
   const uuid = () => crypto.randomUUID ? crypto.randomUUID() : (Date.now().toString(36)+Math.random().toString(36).slice(2,8));
   const clamp = (n,min,max)=>Math.min(Math.max(n,min),max);
 
+  function sparkFromArray(values){
+    if(!values.length) return '';
+    const chars = ['▁','▂','▃','▄','▅','▆','▇','█'];
+    const min = Math.min(...values), max = Math.max(...values);
+    const span = max-min || 1;
+    return values.map(v=>chars[Math.round(((v-min)/span)*(chars.length-1))]).join('');
+  }
+
   // ---------- Storage (localStorage MVP) ----------
   const store = {
     get(key, def){ try{ return JSON.parse(localStorage.getItem(key) || JSON.stringify(def)); }catch(e){ return def } },
@@ -227,7 +241,7 @@
       {id:'s2', exerciseId:'ex_sumo_kb', targetSets:4, targetReps:10, restBetweenSetsSec:120, restAfterExerciseSec:180}
     ]},
   ]);
-  let workouts = store.get('workouts', []); // each: {id, date, programId, programNameSnapshot, colorHex, bodyWeight, startedAt, finishedAt, blocks:[{stepId, sets:[]}], totalTonnage}
+  let workouts = store.get('workouts', []);
 
   function saveAll(){ store.set('settings', settings); store.set('exercises', exercises); store.set('programs', programs); store.set('workouts', workouts); }
 
@@ -261,17 +275,14 @@
     }
     return 0;
   }
-
   function sum(arr, pick=(x)=>x){ return arr.reduce((a,b)=>a + Number(pick(b)||0), 0); }
 
   // ---------- Dashboard ----------
   let chart;
   function drawDashboard(){
-    // quick start dropdown
     const qp = $('#quickProgram');
     qp.innerHTML = programs.map(p=>`<option value="${p.id}">${p.name}</option>`).join('');
 
-    // KPIs
     const day = todayISO();
     const tonToday = tonnageByDay(day);
     $('#kpiToday').textContent = fmtKg(tonToday);
@@ -279,20 +290,18 @@
     const ton30 = rangeSumTonnage(30); $('#kpi30').textContent = fmtKg(ton30);
 
     // Recent workouts
-    const recent = [...workouts].sort((a,b)=>b.startedAt.localeCompare(a.startedAt)).slice(0,5);
+    const recent = [...workouts].sort((a,b)=>b.startedAt?.localeCompare(a.startedAt)).slice(0,5);
     const host = $('#recentWorkouts');
     host.innerHTML = recent.map(w=>`<div class="row-sb">
-      <div>
+      <div class="name-cell">
         <div><strong>${new Date(w.startedAt).toLocaleString()}</strong></div>
         <div class="muted">${w.programNameSnapshot}</div>
       </div>
       <div style="color:${w.colorHex}">${fmtKg(w.totalTonnage)}</div>
-    </div>`).join('') || '<div class="muted">Пусто. Нажми "Старт тренировки".</div>';
+    </div>`).join('') || '<div class="muted">Пусто. Нажми иконку ▶</div>';
 
-    // Calendar 30 days
     buildCalendar();
 
-    // Chart
     const days = buildRange(Number($('#rangeSelect').value||30));
     const labels = days.map(d=>d.slice(5));
     const data = days.map(d=>tonnageByDay(d));
@@ -300,7 +309,6 @@
     if(chart) chart.destroy();
     chart = new Chart(ctx, { type:'line', data:{ labels, datasets:[{ label:'Тоннаж/день', data }] }, options:{ responsive:true, plugins:{legend:{display:false}}, scales:{ y:{ beginAtZero:true }}}});
   }
-
   $('#rangeSelect').onchange = drawDashboard;
 
   function buildRange(n){
@@ -308,11 +316,7 @@
     for(let i=n-1;i>=0;i--){ const d=new Date(now); d.setDate(now.getDate()-i); arr.push(d.toISOString().slice(0,10)); }
     return arr;
   }
-
-  function tonnageByDay(dateISO){
-    return sum(workouts.filter(w=>w.date===dateISO), w=>w.totalTonnage);
-  }
-
+  function tonnageByDay(dateISO){ return sum(workouts.filter(w=>w.date===dateISO), w=>w.totalTonnage); }
   function rangeSumTonnage(n){ return sum(buildRange(n).map(d=>tonnageByDay(d))); }
 
   function buildCalendar(){
@@ -320,7 +324,7 @@
     const days = buildRange(30);
     for(const d of days){
       const el = document.createElement('div'); el.className='day';
-      const dayNum = Number(d.slice(8)); el.textContent = dayNum;
+      el.textContent = Number(d.slice(8));
       const dayWorkouts = workouts.filter(w=>w.date===d);
       if(dayWorkouts.length){
         const last = dayWorkouts[dayWorkouts.length-1];
@@ -347,16 +351,16 @@
       const ex = exercises.find(e=>e.id===(step?.exerciseId));
       const repsTotal = sum(b.sets, s=>s.reps||0);
       const ton = sum(b.sets, s=>s.tonnage||0);
-      return `<div class="row-sb"><div>${ex?.name||'Упр.'} <span class="tag">x${repsTotal}</span></div><div>${fmtKg(ton)}</div></div>`
+      return `<div class="row-sb"><div class="name-cell">${ex?.name||'Упражнение'} <span class="tag">x${repsTotal}</span></div><div>${fmtKg(ton)}</div></div>`
     }).join('');
     return `<div class="card" style="margin-bottom:10px;border-color:${w.colorHex}">
-      <div class="row-sb"><div><strong style="color:${w.colorHex}">${w.programNameSnapshot}</strong></div><div>${fmtKg(w.totalTonnage)}</div></div>
+      <div class="row-sb"><div class="name-cell"><strong style="color:${w.colorHex}">${w.programNameSnapshot}</strong></div><div>${fmtKg(w.totalTonnage)}</div></div>
       <div class="muted">${new Date(w.startedAt).toLocaleTimeString()} — ${w.finishedAt?new Date(w.finishedAt).toLocaleTimeString():'…'}</div>
       <div class="hr"></div>
       ${exBlocks}
-      <div style="margin-top:8px" class="row" >
-        <button class="btn" onclick="openWorkout('${w.id}')">Открыть</button>
-        <button class="btn" onclick='copyShare(${JSON.stringify(JSON.stringify(shareWorkout(w))).split("\"").join("&quot;")})'>Поделиться</button>
+      <div style="margin-top:8px" class="actions" >
+        <button class="btn icon" title="Посмотреть" onclick="openWorkout('${w.id}')">👁</button>
+        <button class="btn" onclick='copyShare(${JSON.stringify(JSON.stringify(shareWorkout(w))).split("\"").join("&quot;")})' title="Поделиться">⧉</button>
       </div>
     </div>`
   }
@@ -372,9 +376,9 @@
       const ton = sum(b.sets, s=>s.tonnage||0);
       lines.push(`• ${ex?.name||'Упражнение'}: ${repsTotal} повт., ${ton.toFixed(0)} кг`);
     }
-    return lines.join('\n');
+    return lines.join('
+');
   }
-
   function copyShare(text){ navigator.clipboard.writeText(text); toast('Сводка скопирована'); }
 
   // ---------- Quick start ----------
@@ -383,14 +387,12 @@
     const pid = $('#quickProgram').value; const bw = Number($('#inputBodyWeight').value || settings.defaultBodyWeight || 0);
     startWorkout(pid, bw);
   }
-
   function startWorkoutFlow(){
     if(!programs.length){ toast('Создай программу сначала'); return }
     const pid = programs[0].id;
     const bw = Number(prompt('Вес тела (кг):', settings.defaultBodyWeight || 80) || 0);
     startWorkout(pid, bw);
   }
-
   function startWorkout(programId, bodyWeight){
     const prog = programs.find(p=>p.id===programId) || programs[0];
     const w = { id: uuid(), date: todayISO(), programId: prog.id, programNameSnapshot: prog.name, colorHex: prog.color, bodyWeight, startedAt: new Date().toISOString(), finishedAt:null, blocks: prog.steps.map(s=>({ stepId:s.id, sets:[] })), totalTonnage:0 };
@@ -399,16 +401,12 @@
 
   // ---------- Workout Runner ----------
   let timer={id:null, endsAt:0, label:'', remaining:0};
-
   function openWorkout(id){
     const w = workouts.find(x=>x.id===id); if(!w) return toast('Не найдена');
     const dlg=$('#dlgWorkout'); $('#wTitle').textContent = `${w.programNameSnapshot} • ${fmtKg(w.totalTonnage)}`;
-
     const prog = programs.find(p=>p.id===w.programId);
-
     let html = `<div class="muted">Вес тела: ${w.bodyWeight} кг</div>`;
     html += `<div class="hr"></div>`;
-
     w.blocks.forEach((b, idx)=>{
       const step = prog?.steps.find(s=>s.id===b.stepId);
       const ex = exercises.find(e=>e.id===step?.exerciseId);
@@ -423,29 +421,27 @@
         <div class="row" style="gap:8px;margin-top:8px">
           <input id="reps_${b.stepId}" class="input" type="number" placeholder="Повторы" style="width:120px" />
           <input id="add_${b.stepId}" class="input" type="number" placeholder="Доп. вес / Раб. вес" style="width:180px" />
-          <button class="btn" onclick="addSet('${w.id}','${b.stepId}','${ex?.type||'weighted'}')">Завершить подход</button>
-          <button class="btn" onclick="startRest('${w.id}','${b.stepId}','set')">Таймер подхода</button>
+          <button class="btn" type="button" onclick="addSet('${w.id}','${b.stepId}','${ex?.type||'weighted'}')">✓ Подход</button>
+          <button class="btn" type="button" onclick="startRest('${w.id}','${b.stepId}','set')">⏳</button>
         </div>
       </div>`;
     });
 
     html += `<div class="row" style="justify-content:space-between;align-items:center">
       <div class="timer" id="timerBox"></div>
-      <div class="row" style="gap:8px">
-        <button class="btn" onclick="finishWorkout('${w.id}')">Завершить тренировку</button>
-        <button class="btn danger" onclick="deleteWorkout('${w.id}')">Удалить</button>
+      <div class="actions">
+        <button class="btn primary" type="button" onclick="finishWorkout('${w.id}')">✓ Сохранить</button>
+        <button class="btn icon" type="button" title="Удалить" onclick="deleteWorkout('${w.id}')">×</button>
       </div>
     </div>`;
 
     $('#wContent').innerHTML = html;
     dlg.showModal();
   }
-
   function renderSetRow(type, bodyWeight, s){
     const load = (type==='bodyweight') ? (Number(bodyWeight)+Number(s.additionalWeight||0)) : Number(s.additionalWeight||0);
     return `<div class="row-sb"><div>Подход: <span class="chip">${s.reps||0} повт.</span> · Нагрузка: <span class="chip">${load} кг</span></div><div>${fmtKg(s.tonnage||0)}</div></div>`
   }
-
   function addSet(workoutId, stepId, exType){
     const w = workouts.find(x=>x.id===workoutId); if(!w) return;
     const reps = Number($(`#reps_${stepId}`).value||0);
@@ -456,11 +452,9 @@
     blk.sets.push({ id:uuid(), exerciseId:null, reps, additionalWeight:addW, tonnage:ton, startedAt:null, finishedAt:new Date().toISOString() });
     w.totalTonnage = sum(w.blocks, b=>sum(b.sets, s=>s.tonnage||0));
     saveAll(); openWorkout(workoutId); drawDashboard();
-    // auto rest between sets
     const prog = programs.find(p=>p.id===w.programId); const step = prog?.steps.find(s=>s.id===stepId);
     if(step?.restBetweenSetsSec) startRest(workoutId, stepId, 'set');
   }
-
   function startRest(workoutId, stepId, kind){
     const w = workouts.find(x=>x.id===workoutId); const prog = programs.find(p=>p.id===w.programId); const step = prog?.steps.find(s=>s.id===stepId);
     const secs = (kind==='set' ? step?.restBetweenSetsSec : step?.restAfterExerciseSec) || 90;
@@ -470,7 +464,6 @@
     if(timer.id) clearInterval(timer.id);
     timer.id = setInterval(tickTimer, 250);
   }
-
   function tickTimer(){
     const rem = Math.max(0, timer.endsAt - Date.now());
     timer.remaining = rem;
@@ -481,37 +474,30 @@
       if('Notification' in window){ if(Notification.permission==='granted'){ new Notification('Отдых окончен'); } }
     }
   }
-
   function finishWorkout(id){
     const w = workouts.find(x=>x.id===id); if(!w) return;
     w.finishedAt = new Date().toISOString(); saveAll(); toast('Тренировка сохранена'); drawDashboard(); openWorkout(id);
   }
-
-  function deleteWorkout(id){
-    if(!confirm('Удалить тренировку?')) return;
-    workouts = workouts.filter(w=>w.id!==id); saveAll(); $('#dlgWorkout').close(); drawDashboard();
-  }
+  function deleteWorkout(id){ if(!confirm('Удалить тренировку?')) return; workouts = workouts.filter(w=>w.id!==id); saveAll(); $('#dlgWorkout').close(); drawDashboard(); }
 
   // ---------- Programs ----------
   $('#btnAddProgram').onclick = ()=> editProgram();
-
   function renderPrograms(){
     const host = $('#programsList');
     if(!programs.length){ host.innerHTML = '<div class="muted">Нет программ</div>'; return }
     host.innerHTML = programs.map(p=>{
       return `<div class="card">
         <div class="row-sb">
-          <div><strong style="color:${p.color}">■</strong> ${p.name}</div>
-          <div class="row" style="gap:8px">
-            <button class="btn" onclick="editProgram('${p.id}')">Редактировать</button>
-            <button class="btn danger" onclick="deleteProgram('${p.id}')">Удалить</button>
+          <div class="name-cell"><strong style="color:${p.color}">■</strong> ${p.name}</div>
+          <div class="actions">
+            <button class="btn icon" title="Редактировать" onclick="editProgram('${p.id}')">✎</button>
+            <button class="btn icon" title="Удалить" onclick="deleteProgram('${p.id}')">×</button>
           </div>
         </div>
         <div class="muted">Шагов: ${p.steps.length}</div>
       </div>`
     }).join('');
   }
-
   function editProgram(id){
     const isNew = !id; const p = isNew ? {id:uuid(), name:'', color:'#4CAF50', steps:[]} : programs.find(x=>x.id===id);
     const dlg=$('#dlgEditor'); $('#edTitle').textContent = isNew? 'Новая программа' : 'Редактировать программу';
@@ -525,7 +511,7 @@
           <td>${s.targetSets||'-'}×${s.targetReps||'-'}</td>
           <td>${s.restBetweenSetsSec||90}s</td>
           <td>${s.restAfterExerciseSec||120}s</td>
-          <td><button class="btn" type="button" onclick="__rmStep('${s.id}')">×</button></td>
+          <td><button class="btn icon" type="button" title="Удалить" onclick="__rmStep('${s.id}')">×</button></td>
         </tr>`
       }).join('');
 
@@ -533,7 +519,7 @@
         <div class="grid-3">
           <div><label>Название</label><input id="pName" class="input" value="${p.name}"/></div>
           <div><label>Цвет</label><input id="pColor" class="input" type="color" value="${p.color}"/></div>
-          <div style="align-self:end"><button class="btn" id="addStepBtn" type="button">Добавить шаг</button></div>
+          <div style="align-self:end"><button class="btn icon" id="addStepBtn" title="Добавить шаг" type="button">＋</button></div>
         </div>
         <div class="hr"></div>
         <table class="table" id="stepsTable"><thead><tr><th></th><th>Упражнение</th><th>Схема</th><th>Отдых сет</th><th>Отдых упр.</th><th></th></tr></thead>
@@ -542,7 +528,6 @@
           <button class="btn primary" id="saveProgram" type="button">Сохранить</button>
         </div>`;
 
-      // handlers
       $('#addStepBtn').onclick = ()=> openExercisePicker((step)=>{ p.steps.push(step); render(); });
       $('#saveProgram').onclick = ()=>{ p.name=$('#pName').value.trim(); p.color=$('#pColor').value; if(isNew) programs.push(p); saveAll(); dlg.close(); renderPrograms(); drawDashboard(); };
       window.__rmStep = (sid)=>{ p.steps = p.steps.filter(s=>s.id!==sid); render(); };
@@ -559,6 +544,7 @@
 
     render(); dlg.showModal();
   }
+  function deleteProgram(id){ if(!confirm('Удалить программу?')) return; programs = programs.filter(p=>p.id!==id); saveAll(); renderPrograms(); drawDashboard(); }
 
   // Exercise picker helper
   function openExercisePicker(onAdd){
@@ -571,7 +557,7 @@
         <div><label>Отдых между подходами (с)</label><input id="pkRB" class="input" type="number" value="90"/></div>
         <div><label>Отдых между упражнениями (с)</label><input id="pkRA" class="input" type="number" value="120"/></div>
       </div>
-      <div style="margin-top:10px" class="row"><button class="btn primary" id="pkAdd" type="button">Добавить</button></div>`;
+      <div style="margin-top:10px" class="row"><button class="btn primary" id="pkAdd" type="button" title="Добавить">＋</button></div>`;
     dlg.showModal();
     $('#pkAdd').onclick = ()=>{
       const step = { id: uuid(), exerciseId: $('#pkEx').value, targetSets: Number($('#pkSets').value||0), targetReps: Number($('#pkReps').value||0), restBetweenSetsSec: Number($('#pkRB').value||90), restAfterExerciseSec: Number($('#pkRA').value||120) };
@@ -579,29 +565,27 @@
     };
   }
 
-  function deleteProgram(id){ if(!confirm('Удалить программу?')) return; programs = programs.filter(p=>p.id!==id); saveAll(); renderPrograms(); drawDashboard(); }
-
   // ---------- Exercises ----------
   $('#btnAddExercise').onclick = ()=> editExercise();
-
   function renderExercises(){
     const host = $('#exercisesList');
     if(!exercises.length){ host.innerHTML = '<div class="muted">Нет упражнений</div>'; return }
     host.innerHTML = exercises.map(e=>{
+      const last7 = buildRange(7).map(d=>exerciseTonnageByDay(e.id,d));
+      const spark = sparkFromArray(last7);
       return `<div class="card">
         <div class="row-sb">
-          <div><strong>${e.name}</strong> <span class="tag">${e.type}</span></div>
-          <div class="row" style="gap:8px">
-            <button class="btn" onclick="exerciseStats('${e.id}')">Статистика</button>
-            <button class="btn" onclick="editExercise('${e.id}')">Редактировать</button>
-            <button class="btn danger" onclick="deleteExercise('${e.id}')">Удалить</button>
+          <div class="name-cell"><strong>${e.name}</strong> <span class="tag">${e.type}</span><div class="muted" title="Последние 7 дней">${spark||'·'}</div></div>
+          <div class="actions">
+            <button class="btn icon" title="Статистика" onclick="exerciseStats('${e.id}')">📈</button>
+            <button class="btn icon" title="Редактировать" onclick="editExercise('${e.id}')">✎</button>
+            <button class="btn icon" title="Удалить" onclick="deleteExercise('${e.id}')">×</button>
           </div>
         </div>
         ${e.notes?`<div class="muted">${e.notes}</div>`:''}
       </div>`
     }).join('');
   }
-
   function editExercise(id){
     const isNew = !id; const e = isNew ? {id:uuid(), name:'', type:'bodyweight', category:'other', notes:''} : exercises.find(x=>x.id===id);
     const dlg=$('#dlgEditor'); $('#edTitle').textContent = isNew? 'Новое упражнение' : 'Редактировать упражнение';
@@ -622,12 +606,14 @@
         </select></div>
       </div>
       <div style="margin-top:8px"><label>Заметка</label><textarea id="exNotes" class="input" rows="3" style="width:100%">${e.notes||''}</textarea></div>
-      <div style="margin-top:10px"><button id="saveEx" class="btn primary">Сохранить</button></div>`;
+      <div style="margin-top:10px"><button id="saveEx" class="btn primary" type="button">Сохранить</button></div>`;
     $('#saveEx').onclick = ()=>{ e.name=$('#exName').value.trim(); e.type=$('#exType').value; e.category=$('#exCat').value; e.notes=$('#exNotes').value; if(isNew) exercises.push(e); saveAll(); dlg.close(); renderExercises(); drawDashboard(); };
     dlg.showModal();
   }
-
   function deleteExercise(id){ if(!confirm('Удалить упражнение?')) return; exercises = exercises.filter(e=>e.id!==id); saveAll(); renderExercises(); }
+  function exerciseTonnageByDay(exId, dateISO){
+    let total=0; for(const w of workouts){ if(w.date!==dateISO) continue; const prog = programs.find(p=>p.id===w.programId); for(const b of w.blocks){ const step = prog?.steps.find(s=>s.id===b.stepId); if(step?.exerciseId===exId){ total += sum(b.sets, s=>s.tonnage||0); } } } return total;
+  }
 
   // ---------- Exercise Stats ----------
   function exerciseStats(id){
@@ -642,14 +628,9 @@
         }
       }
     }
-    // aggregate by date
-    const byDate = {};
-    for(const r of allSets){ const d=r.workout.date; byDate[d] = (byDate[d]||0) + Number(r.set.tonnage||0); }
+    const byDate = {}; for(const r of allSets){ const d=r.workout.date; byDate[d] = (byDate[d]||0) + Number(r.set.tonnage||0); }
     const rows = Object.entries(byDate).sort((a,b)=>a[0].localeCompare(b[0]));
-
-    const totalSets = allSets.length;
-    const totalReps = sum(allSets, x=>x.set.reps||0);
-    const totalTon = sum(allSets, x=>x.set.tonnage||0);
+    const totalSets = allSets.length; const totalReps = sum(allSets, x=>x.set.reps||0); const totalTon = sum(allSets, x=>x.set.tonnage||0);
 
     const dlg=$('#dlgEditor'); $('#edTitle').textContent = `Статистика • ${ex.name}`;
     $('#edContent').innerHTML = `
@@ -670,7 +651,6 @@
       </tbody></table>
     `;
     dlg.showModal();
-    // chart
     setTimeout(()=>{
       const ctx = $('#exChart');
       new Chart(ctx,{type:'bar',data:{labels:rows.map(r=>r[0].slice(5)),datasets:[{label:'Тоннаж/день',data:rows.map(r=>r[1])}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
@@ -705,7 +685,6 @@
       self.addEventListener('activate',e=>{ e.waitUntil(self.clients.claim()); });
       self.addEventListener('fetch',e=>{
         const url = new URL(e.request.url);
-        // cache-first for same-origin, network-first otherwise
         if(url.origin===location.origin){ e.respondWith(caches.match(e.request).then(r=> r || fetch(e.request).then(res=>{ const copy=res.clone(); caches.open(CACHE).then(c=>c.put(e.request,copy)); return res; }))); }
       });`;
     const blob = new Blob([swCode], {type:'text/javascript'});
