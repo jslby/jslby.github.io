@@ -8,9 +8,9 @@
     "summary": "Performance-маркетолог с опытом работы от Tier 1 до Tier 3 ГЕО. Специализируюсь на Facebook Ads и iGaming вертикали. Благодаря глубокому техническому бэкграунду (HTML, CSS, JS, PHP, Python, React) самостоятельно настраиваю трекинг, клоакинг, скрипты и кастомную аналитику."
   },
   "skills": {
-    "traffic": ["Facebook Ads", "Native", "Push", "Pop", "Yandex", "BigoAds", "VKontakte"],
-    "verticals": ["iGaming", "Финансы"],
-    "geo": ["Tier 1 (DE, ES, IT, FR, CH, NL, BE)", "Tier 2-3 (TR, MX, BD)"],
+    "traffic": ["Facebook Ads", "Native", "Push", "Pop", "YandexDirect", "BigoAds", "VKontakte"],
+    "verticals": ["iGaming", "Финансы", "Sweepstakes"],
+    "geo": ["Tier 1 (DE, ES, IT, FR, CH, NL, BE)", "Tier 2 (TR, PL)", "Tier 3 (BD, CO, CI, GH)"],
     "tech": ["HTML5 / CSS3", "JavaScript", "PHP", "Python", "React", "Трекинг & Аналитика (CPA, ROAS, ROI)"]
   },
   "experience": [
