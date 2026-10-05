@@ -18,7 +18,7 @@
       "id": "case-es-jan-2025",
       "date": "Январь 2025",
       "title": "Испания (ES) — Запуск iGaming: от тестов через SPY к качественному масштабированию",
-      "tags": ["ES", "iGaming", "Tier-1", "Facebook Ads", "ABO/CBO"],
+      "tags": ["ES", "iGaming", "FacebookAds"],
       "metrics": [
         { "label": "Спенд", "value": "€55 948" },
         { "label": "Доход", "value": "€48 059" },
@@ -32,7 +32,7 @@
       "id": "case-tr-metropol-feb-2025",
       "date": "Февраль 2025",
       "title": "Турция (TR) — Масштабирование оффера Metropol до 1000 FTD/мес",
-      "tags": ["TR", "Metropol", "iGaming", "Facebook Ads", "Volume"],
+      "tags": ["TR", "iGaming", "FacebookAds"],
       "metrics": [
         { "label": "Выплаты", "value": "$90–$120 / FTD" },
         { "label": "Volume", "value": "~1000 FTD/мес" },
