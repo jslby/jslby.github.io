@@ -8,27 +8,54 @@
     "summary": "Performance-маркетолог с опытом работы от Tier 1 до Tier 3 ГЕО. Специализируюсь на Facebook Ads и iGaming вертикали. Благодаря глубокому техническому бэкграунду (HTML, CSS, JS, PHP, Python, React) самостоятельно настраиваю трекинг, клоакинг, скрипты и кастомную аналитику."
   },
   "skills": {
-    "traffic": ["Facebook Ads", "Native", "Push", "Pop", "YandexDirect", "BigoAds", "VKontakte"],
-    "verticals": ["iGaming", "Финансы", "Sweepstakes"],
-    "geo": ["Tier 1 (DE, ES, IT, FR, CH, NL, BE)", "Tier 2 (TR, PL)", "Tier 3 (BD, CO, CI, GH)"],
+    "traffic": ["Facebook Ads", "Native", "Push", "Pop", "Yandex", "BigoAds", "VKontakte"],
+    "verticals": ["iGaming", "Финансы"],
+    "geo": ["Tier 1 (DE, ES, IT, FR, CH, NL, BE)", "Tier 2-3 (TR, MX, BD)"],
     "tech": ["HTML5 / CSS3", "JavaScript", "PHP", "Python", "React", "Трекинг & Аналитика (CPA, ROAS, ROI)"]
   },
+  "cases": [
+    {
+      "id": "case-igaming-tier1",
+      "date": "2025 — 2026",
+      "title": "Масштабирование iGaming связок в Tier-1 через Facebook Ads",
+      "tags": ["iGaming", "Tier-1", "Facebook Ads", "JS/Tracking"],
+      "metrics": [
+        { "label": "Volume", "value": "2000+ FTD/мес" },
+        { "label": "ROI", "value": "до 70%" },
+        { "label": "ГЕО", "value": "DE, ES, IT, FR" }
+      ],
+      "summary": "Разработка и тестирование гипотез по креативам и воронкам для Tier-1 рынка с высокой конкуренцией.",
+      "content": "В рамках кампаний проводился полный цикл поиска и масштабирования связок. Разработаны уникальные воронки под каждый регион, оптимизирована таргетинговая сегментация. Использование кастомных JS-скриптов для автоматизации работы с кабинетами и трекингом позволило точнее контролировать CPA и ROAS на больших объемах."
+    },
+    {
+      "id": "case-finances-push",
+      "date": "2023 — 2024",
+      "title": "Слив трафика на финансовую вертикаль через Push и Native сети",
+      "tags": ["Финансы", "Push/Pop", "Native", "Оптимизация"],
+      "metrics": [
+        { "label": "Volume", "value": "до 800 лидов/день" },
+        { "label": "Источники", "value": "Push, Pops, Native" },
+        { "label": "Оплата", "value": "CPA / CPL" }
+      ],
+      "summary": "Запуск и регулярная оптимизация кампаний в нативных тизерных сетях под финансовые офферы.",
+      "content": "Основной упор делался на глубокий анализ показателей (CTR, CR, ROI) и очистку площадок от неконвертящего трафика. Настройка фильтрации и кастомных лендингов позволила зафиксировать поток лидов на уровне до 800 в день с удержанием KPI заказчика."
+    }
+  ],
   "experience": [
     {
       "company": "NDA",
-      "position": "Facebook Media Buyer",
+      "position": "Media Buyer",
       "period": "Октябрь 2025 — Сентябрь 2026",
       "description": [
         "Поиск актуальных связок iGaming и их масштабирование в Facebook Ads.",
         "Разработка и тестирование гипотез: креативы, воронки, подходы к сегментации.",
         "Контроль эффективности по показателям CPA и ROAS.",
-        "Работа с гео Tier 1 (Испания, Германия, Италия, Франция, Нидерланды, Швейцария, Бельгия).",
-        "Усредненный месячный бюджет $100к, максмально доходил до $170к"
+        "Работа с гео Tier 1 (Испания, Германия, Италия, Франция, Нидерланды, Швейцария, Бельгия)."
       ]
     },
     {
-      "company": "PerfomanceLab",
-      "position": "Facebook Media Buyer",
+      "company": "Perfomance Lab",
+      "position": "Media Buyer",
       "period": "Август 2025 — Сентябрь 2025",
       "description": [
         "Запуск и ведение рекламных кампаний в Facebook.",
