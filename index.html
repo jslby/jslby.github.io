@@ -6,165 +6,308 @@
   <title>Резюме</title>
   <style>
     :root {
-      --bg-color: #fcfcfc;
-      --text-main: #222222;
-      --text-muted: #666666;
-      --border-color: #e5e5e5;
-      --accent: #111111;
-      --tag-bg: #f0f0f0;
-      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-sub: #334155;
+      --border-color: #e2e8f0;
+      --border-hover: #cbd5e1;
+      
+      /* Акцентные цвета */
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --primary-light: #eeeffe;
+      --tag-bg: #f1f5f9;
+      --tag-text: #1e293b;
+      
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-hover: 0 10px 25px -5px rgba(99, 102, 241, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: var(--font-family);
-      background-color: var(--bg-color);
+      background-color: var(--bg-page);
       color: var(--text-main);
-      line-height: 1.5;
+      line-height: 1.6;
       padding: 40px 20px;
+      -webkit-font-smoothing: antialiased;
     }
 
     .page {
-      max-width: 960px;
+      max-width: 1000px;
       margin: 0 auto;
-      background: #ffffff;
-      padding: 40px;
+      background: var(--bg-card);
+      padding: 48px;
       border: 1px solid var(--border-color);
-      border-radius: 8px;
+      border-radius: 16px;
+      box-shadow: var(--shadow-sm);
     }
 
+    /* Шапка */
     .header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      border-bottom: 2px solid var(--accent);
-      padding-bottom: 20px;
-      margin-bottom: 30px;
+      border-bottom: 2px solid var(--primary-light);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
     }
 
-    .header h1 { font-size: 2.2rem; letter-spacing: -0.5px; }
-    .subtitle { font-size: 1.1rem; color: var(--text-muted); font-weight: 500; }
+    .header h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 1.15rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
 
     .print-btn {
-      background: var(--accent);
-      color: #fff;
+      background: var(--primary);
+      color: #ffffff;
       border: none;
-      padding: 8px 16px;
-      border-radius: 4px;
+      padding: 10px 20px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: var(--transition);
+      box-shadow: 0 2px 4px rgba(99, 102, 241, 0.2);
     }
 
+    .print-btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+
+    /* Макет */
     .layout {
       display: grid;
-      grid-template-columns: 280px 1fr;
+      grid-template-columns: 290px 1fr;
       gap: 40px;
     }
 
-    .section { margin-bottom: 32px; }
+    .section { margin-bottom: 36px; }
 
     .section h2 {
       font-size: 1.1rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 6px;
-      margin-bottom: 16px;
+      letter-spacing: 1.2px;
+      color: var(--text-main);
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 8px;
+      margin-bottom: 18px;
+      font-weight: 700;
     }
 
-    .section h3 { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 6px; }
+    .section h3 {
+      font-size: 0.92rem;
+      color: var(--text-sub);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
 
+    /* Списки и контакты */
     .contact-list, .lang-list { list-style: none; font-size: 0.95rem; }
-    .contact-list li, .lang-list li { margin-bottom: 6px; }
-    .contact-list a { color: var(--text-main); text-decoration: none; }
+    .contact-list li, .lang-list li { margin-bottom: 10px; color: var(--text-main); }
+    .contact-list a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    .contact-list a:hover {
+      color: var(--primary-hover);
+      text-decoration: underline;
+    }
 
-    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    /* Теги и фильтры */
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
     .tag {
       background: var(--tag-bg);
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-size: 0.82rem;
-      border: none;
+      color: var(--tag-text);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.83rem;
+      font-weight: 500;
+      border: 1px solid transparent;
+      transition: var(--transition);
     }
-    .tag.clickable { cursor: pointer; }
-    .tag.clickable.active { background: var(--accent); color: #fff; }
-    .tag.highlight { background: #e8e8e8; font-weight: 600; }
+    .tag.highlight {
+      background: var(--primary-light);
+      color: var(--primary-hover);
+      font-weight: 600;
+    }
+    .tag.clickable {
+      cursor: pointer;
+      user-select: none;
+    }
+    .tag.clickable:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .tag.clickable.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
 
-    /* Блоговый формат кейсов */
-    .filter-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
-    .filter-label { font-size: 0.85rem; color: var(--text-muted); }
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      font-weight: 600;
+    }
 
+    /* Блог кейсов (Интерактивные карточки) */
     .case-post {
       border: 1px solid var(--border-color);
-      border-radius: 6px;
-      padding: 18px;
-      margin-bottom: 20px;
-      background: #fff;
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 22px;
+      background: var(--bg-card);
+      transition: var(--transition);
       page-break-inside: avoid;
       break-inside: avoid;
     }
 
-    .case-header { margin-bottom: 10px; }
-    .case-meta { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px; }
-    .case-title { font-size: 1.15rem; font-weight: 600; line-height: 1.3; }
+    .case-post:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-3px);
+    }
 
+    .case-meta {
+      font-size: 0.85rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .case-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--text-main);
+    }
+
+    /* Метрики */
     .case-metrics {
       display: flex;
-      gap: 16px;
-      background: #f9f9f9;
-      padding: 10px 14px;
-      border-radius: 4px;
-      margin: 12px 0;
+      gap: 18px;
+      background: var(--primary-light);
+      padding: 12px 18px;
+      border-radius: 8px;
+      margin: 14px 0;
       flex-wrap: wrap;
     }
 
     .metric-item { display: flex; flex-direction: column; }
-    .metric-value { font-weight: 700; font-size: 1rem; color: var(--accent); }
-    .metric-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
+    .metric-value {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--primary-hover);
+    }
+    .metric-label {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
 
-    .case-body { font-size: 0.95rem; color: #333; margin-top: 10px; display: none; }
+    .case-summary { color: var(--text-sub); font-size: 0.98rem; }
+    .case-body {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border-color);
+      display: none;
+    }
     .case-body.open { display: block; }
 
     .read-more-btn {
       background: none;
       border: none;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      font-weight: 600;
+      color: var(--primary);
+      font-size: 0.9rem;
+      font-weight: 700;
       cursor: pointer;
       padding: 0;
-      margin-top: 8px;
-      text-decoration: underline;
+      margin-top: 10px;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
+    .read-more-btn:hover { color: var(--primary-hover); }
 
     /* Опыт работы */
-    .job-card { margin-bottom: 24px; page-break-inside: avoid; break-inside: avoid; }
-    .job-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
-    .job-title { font-size: 1.05rem; }
-    .job-title .company { color: var(--text-muted); font-weight: normal; }
-    .job-period { font-size: 0.85rem; color: var(--text-muted); white-space: nowrap; }
-    .job-desc { padding-left: 18px; font-size: 0.95rem; }
-    .job-desc li { margin-bottom: 4px; }
-
-    .edu-item { margin-bottom: 10px; font-size: 0.9rem; }
-    .edu-year { color: var(--text-muted); font-size: 0.85rem; }
-
-    @media (max-width: 768px) {
-      .layout { grid-template-columns: 1fr; }
-      .page { padding: 20px; }
-      .case-metrics { gap: 10px; }
+    .job-card {
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      transition: var(--transition);
+      border: 1px solid transparent;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+    .job-card:hover {
+      background: #fafafa;
+      border-color: var(--border-color);
     }
 
-    /* Стили для печати */
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+    .job-title { font-size: 1.1rem; font-weight: 700; color: var(--text-main); }
+    .job-title .company { color: var(--primary); font-weight: 600; }
+    .job-period { font-size: 0.88rem; color: var(--text-sub); font-weight: 600; white-space: nowrap; }
+    .job-desc { padding-left: 18px; font-size: 0.96rem; color: var(--text-main); }
+    .job-desc li { margin-bottom: 6px; }
+
+    .summary-text { font-size: 1rem; color: var(--text-main); line-height: 1.65; }
+
+    .edu-item { margin-bottom: 12px; font-size: 0.95rem; }
+    .edu-year { color: var(--text-sub); font-size: 0.88rem; font-weight: 500; }
+
+    @media (max-width: 768px) {
+      .layout { grid-template-columns: 1fr; gap: 24px; }
+      .page { padding: 24px; border-radius: 0; border: none; }
+      .case-metrics { gap: 12px; }
+    }
+
+    /* Версия для печати */
     @media print {
-      body { background: #fff; padding: 0; color: #000; }
-      .page { border: none; padding: 0; max-width: 100%; }
+      body { background: #ffffff; padding: 0; color: #000000; }
+      .page { border: none; padding: 0; max-width: 100%; box-shadow: none; }
       .print-btn, .filter-bar, .read-more-btn { display: none !important; }
-      .layout { grid-template-columns: 240px 1fr; gap: 20px; }
-      .tag { border: 1px solid #ccc; background: none; }
+      .layout { grid-template-columns: 240px 1fr; gap: 24px; }
+      .tag { border: 1px solid #cbd5e1; background: none; color: #000; }
+      .case-post { border: 1px solid #cbd5e1; box-shadow: none; transform: none !important; }
       .case-body { display: block !important; }
-      a { text-decoration: none; color: #000; }
+      .case-metrics { background: #f1f5f9; }
+      .metric-value { color: #000000; }
+      a { text-decoration: none; color: #000000; }
     }
   </style>
 </head>
@@ -204,7 +347,7 @@
       <main>
         <section class="section">
           <h2>О себе</h2>
-          <p id="summary"></p>
+          <p class="summary-text" id="summary"></p>
         </section>
 
         <section class="section">
@@ -317,7 +460,7 @@
           <div class="case-header">
             <div class="case-meta">${c.date}</div>
             <h3 class="case-title">${c.title}</h3>
-            <div class="tags" style="margin-top: 6px;">
+            <div class="tags" style="margin-top: 8px;">
               ${c.tags.map(t => `<span class="tag">${t}</span>`).join('')}
             </div>
           </div>
